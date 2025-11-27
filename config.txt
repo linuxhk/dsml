@@ -519,12 +519,15 @@ for col in df.columns:
     else:
         print(col,"is Nominal")
 
-# histogram
+ histogram
 numeric_df = df.select_dtypes(include=['int64','float64'])
-numeric_df.hist(figsize=(10,6),bins=10)
+axes = numeric_df.hist(figsize=(10,6),bins=10)
 plt.suptitle("histogram of IRIS Dataset Features")
-plt.show()
+for ax in axes.flatten():
+    ax.set_xlabel("Value")        # X-axis name
+    ax.set_ylabel("Frequency")    # Y-axis name
 
+plt.show()
 
 
 
@@ -1003,6 +1006,7 @@ print(df.head())
 
 # Step 4: Save Cleaned + Transformed File 
 # df.to_csv("Train Travel_Transformed.csv", index=False)
+
 
 
 
