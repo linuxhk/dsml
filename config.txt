@@ -180,7 +180,10 @@ data = {
     "Buys": ["No", "No", "Yes", "Yes", "Yes", "No", "Yes", "No", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]
 }
 
+
 df = pd.DataFrame(data)
+# df = pd.read_csv('Lipstick.csv')
+# df = df.drop("ID",axis=1) 
 print(df.head())
 # Step 2: Convert categorical values to numeric using LabelEncoder
 LE = LabelEncoder()
@@ -1000,6 +1003,7 @@ print(df.head())
 
 # Step 4: Save Cleaned + Transformed File 
 # df.to_csv("Train Travel_Transformed.csv", index=False)
+
 
 
 
