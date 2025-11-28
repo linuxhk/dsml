@@ -377,51 +377,44 @@ print("Buys" if prediction[0]==1 else "Not buy")
 9. Write a program to do the following: You have given a collection of 8 points. P1=[0.1,0.6] P2=[0.15,0.71] P3=[0.08,0.9] P4=[0.16, 0.85] P5=[0.2,0.3] P6=[0.25,0.5] P7=[0.24,0.1] P8=[0.3,0.2]. Perform the k-mean clustering with initial centroids as m1=P1 =Cluster#1=C1 and m2=P8=cluster#2=C2. Answer the following 1] Which cluster does P6 belong to? 2] What is the population of a cluster around m2? 3] What is the updated value of m1 and m2? 
 -->
 # clustering
-
 import numpy as np
+
+# Data points
 points = np.array([
-    [0.1,0.6],
-    [0.15,0.71],
-    [0.08,0.9],
-    [0.16,0.85],
-    [0.2,0.3],
-    [0.25,0.5],
-    [0.24,0.1],
-    [0.3,0.2],
+    [0.1, 0.6],
+    [0.15, 0.71],
+    [0.08, 0.9],
+    [0.16, 0.85],
+    [0.2, 0.3],
+    [0.25, 0.5],
+    [0.24, 0.1],
+    [0.3, 0.2]
 ])
-centroid1 = points[0]
-centroid2 = points[7]
-def euclidean(p,c):
-    x1,y1 = p
-    x2,y2 = c
-    return ((x1-x2)**2+(y1-y2)**2)**0.5
+
+# Initial centroids
+c1 = points[0]
+c2 = points[7]
+
+def dist(a,b):
+    return np.sqrt(np.sum((a-b)**2))
 
 cluster1 = []
 cluster2 = []
 
 for p in points:
-    if(euclidean(p,centroid1)<euclidean(p,centroid2)):
+    if dist(p, c1) < dist(p, c2):
         cluster1.append(p)
+        c1 = np.mean(cluster1, axis=0)     # UPDATE centroid instantly
     else:
         cluster2.append(p)
+        c2 = np.mean(cluster2, axis=0)     # UPDATE centroid instantly
 
-cluster1 = np.array(cluster1)
-cluster2 = np.array(cluster2)
+print("\nCluster 1:", np.array(cluster1))
+print("Cluster 2:", np.array(cluster2))
+print("\nFinal Centroid 1:", c1)
+print("Final Centroid 2:", c2)
 
-new_centroid1 = np.mean(cluster1,axis=0)
-new_centroid2 = np.mean(cluster2,axis=0)
 
-print("cluster 1",cluster1)
-print("cluster 2",cluster2)
-
-print("new centroid 1",new_centroid1)
-print("new centroid 2",new_centroid2)
-
-p6 = np.array([0.25,0.5])
-if(euclidean(centroid1,p6)<euclidean(centroid2,p6)):
-    print("p6 belongs to cluster 1")
-else:
-    print("p6 belongs to cluster 2")
 
 
 
@@ -1006,6 +999,7 @@ print(df.head())
 
 # Step 4: Save Cleaned + Transformed File 
 # df.to_csv("Train Travel_Transformed.csv", index=False)
+
 
 
 
